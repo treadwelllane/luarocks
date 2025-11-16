@@ -262,7 +262,7 @@ local function detect_elf_system(fd, hdr, sections)
             local vn_next = read(fd, 2, endian)
 
             fd:seek("set", dynstr + vn_file)
-            local libname = fd:read(64):gsub("%z.*", "")
+            local libname = (fd:read(64) or ""):gsub("%z.*", "")
 
             if hdr.e_type == 0x03 and libname == "libroot.so" then
                return "haiku"
